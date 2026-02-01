@@ -1,0 +1,55 @@
+---
+---
+<!doctype html>
+<html lang="{{ site.language | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <link rel="stylesheet" href="{{ '/css/gumby.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+  </head>
+
+  <body>
+    <header class="container">
+      <div class="row">
+        <div class="six columns">
+          <h1 class="lead"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+        </div>
+        <nav class="six columns u-pull-right" aria-label="Main navigation">
+          <a href="{{ '/' | relative_url }}">Home</a>
+          &nbsp;|&nbsp;
+          <a href="{{ '/blog/' | relative_url }}">Blog</a>
+            &nbsp;|&nbsp;
+          <a href="https://github.com/leejones">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="container">
+      <div class="row">
+        <section class="twelve columns">
+          {{ content }}
+        </section>
+      </div>
+    </main>
+
+    <footer class="container">
+      <div class="row">
+        <div class="twelve columns">
+          <p>
+            &copy; {{ site.time | date: "%Y" }}
+            {% if site.author and site.author.name %}
+              {{ site.author.name }}
+            {% else %}
+              {{ site.title }}
+            {% endif %}
+            • <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+title: "Lee Jones"
+description: "Personal site of Lee Jones — Site Reliability Engineer in Nashville, TN."
+url: "https://leejones.github.io"
+baseurl: "" # the subpath of your site, e.g. "/blog" if hosted at example.com/blog
+language: "en"
+author:
+  name: "Lee Jones"
+
+# Permalinks for posts (you can change to your preference)
+permalink: /blog/:year/:month/:day/:title/
+
+# Markdown processor and syntax highlighter
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# Plugins supported on GitHub Pages
+plugins:
+  - jekyll-feed
+
+# Keep these out of the site build
+exclude:
+  - docker-compose.yml
+  - Dockerfile
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+# Show future-dated posts (set to false if you prefer not to)
+future: true
+
+# Defaults for posts
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Lee Jones"
+
+# Security / build settings
+safe: true
