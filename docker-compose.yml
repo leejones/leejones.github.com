@@ -1,0 +1,20 @@
+services:
+  jekyll:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: leejones-jekyll:local
+    # Mount the repository into the container so edits on the host are reflected immediately.
+    volumes:
+      - .:/srv/jekyll:cached
+    ports:
+      - "4000:4000"
+    environment:
+      JEKYLL_ENV: development
+    # Run the local preview command (bind to 0.0.0.0 so the host can access it)
+    command: bundle exec jekyll serve --host 0.0.0.0 --port 4000 --watch --incremental
+    # Map container UID/GID to the host user by passing UID/GID env vars when running compose.
+    # Example: UID=$(id -u) GID=$(id -g) docker-compose up
+    user: "${UID:-1000}:${GID:-1000}"
+    stdin_open: true
+    tty: true

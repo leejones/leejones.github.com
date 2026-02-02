@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <link>{{ site.url | append: site.baseurl }}</link>
+    <description>{% if site.description %}{{ site.description | xml_escape }}{% endif %}</description>
+    {% if site.language %}
+    <language>{{ site.language }}</language>
+    {% endif %}
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+
+    {%- assign feed_url = site.url | append: site.baseurl | append: "/feed.xml" -%}
+    <atom:link href="{{ feed_url }}" rel="self" type="application/rss+xml" />
+
+    {%- for post in site.posts -%}
+    <item>
+      <title>{{ post.title | xml_escape }}</title>
+      {%- assign post_url = site.url | append: site.baseurl | append: post.url -%}
+      <link>{{ post_url }}</link>
+      <guid isPermaLink="true">{{ post_url }}</guid>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+
+      {%- if post.author or site.author -%}
+      <author>
+        {%- if post.author -%}
+          {{ post.author | xml_escape }}
+        {%- elsif site.author and site.author.name -%}
+          {{ site.author.name | xml_escape }}
+        {%- endif -%}
+      </author>
+      {%- endif -%}
+
+      {%- if post.excerpt -%}
+      <description><![CDATA[{{ post.excerpt | strip_html | strip_newlines }}]]></description>
+      {%- else -%}
+      <description><![CDATA[{{ post.content | strip_html | strip_newlines | truncate: 200 }}]]></description>
+      {%- endif -%}
+
+      <content:encoded><![CDATA[
+        {%- capture content_html -%}
+          {{ post.content | replace: "\r\n", "\n" }}
+        {%- endcapture -%}
+        {{ content_html }}
+      ]]></content:encoded>
+
+      {%- if post.categories and post.categories != empty -%}
+      <category>{{ post.categories | join: ', ' | xml_escape }}</category>
+      {%- endif -%}
+
+    </item>
+    {%- endfor -%}
+
+  </channel>
+</rss>
