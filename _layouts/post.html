@@ -10,11 +10,6 @@ layout: default
         •
         {% if page.author %}{{ page.author }}{% else %}{{ site.author.name }}{% endif %}
       {% endif %}
-      {% if page.categories %}
-        •
-        {% assign cats = page.categories | join: ', ' %}
-        {{ cats }}
-      {% endif %}
     </p>
   </header>
 
